@@ -1,55 +1,46 @@
-// const xlsx = require("xlsx");
-// const sqlite3 = require("sqlite3").verbose();
+const express = require("express");
+const app = express();
+const { open } = require("sqlite");
+const sqlite3 = require("sqlite3");
+const path = require("path");
 
-// // Function to convert Excel to JSON
-// function readExcelFile(filePath) {
-//   const workbook = xlsx.readFile(filePath);
-//   const sheetNames = workbook.SheetNames;
+const dbPath = path.join(__dirname, "database.db");
+let db = null;
+const conntDbtoServer = async () => {
+  try {
+    db = await open({
+      filename: dbPath,
+      driver: sqlite3.Database,
+    });
+  } catch (e) {
+    console.log(e.message);
+    process.exit(1);
+  }
+};
 
-//   const dataSheets = {};
+conntDbtoServer();
 
-//   sheetNames.forEach((sheet) => {
-//     const jsonData = xlsx.utils.sheet_to_json(workbook.Sheets[sheet]);
-//     dataSheets[sheet] = jsonData;
-//   });
+app.get("/products", async (request, response) => {
+  let sqldata = `select * from products`;
 
-//   return dataSheets;
-// }
+  const de = await db.all(sqldata);
+  response.send(de);
+});
 
-// // Replace 'your_excel_file.xlsx' with the path to your Excel file
-// const excelData = readExcelFile("assignment_data.xlsx");
+app.get("/sale", async (request, response) => {
+  let sqldata = `select * from sale`;
 
-// // // Establish a connection to the SQLite database
-// const db = new sqlite3.Database(
-//   "database.db",
-//   sqlite3.OPEN_READWRITE,
-//   (err) => {
-//     if (err) {
-//       console.error(err.message);
-//     } else {
-//       console.log("Connected to the SQLite database.");
-//     }
-//   }
-// );
+  const de = await db.all(sqldata);
+  response.send(de);
+});
 
-// // Prepare SQL statement to insert data
-// const sql = `INSERT INTO sale (date, web_sales, offline_sales) VALUES (?,?,?)`;
+app.get("/revenue", async (request, response) => {
+  let sqldata = `select * from revmtb`;
 
-// // Insert data into the table
-// excelData[].forEach((item) => {
-//   db.run(sql, [item.date, item.web_sales, item.offline_sales], function (err) {
-//     if (err) {
-//       return console.error(err.message);
-//     }
-//     console.log(`A row has been inserted with rowid ${this.lastID}`);
-//   });
-// });
+  const de = await db.all(sqldata);
+  response.send(de);
+});
 
-// // Close the database connection
-// db.close((err) => {
-//   if (err) {
-//     console.error(err.message);
-//   } else {
-//     console.log("Closed the SQLite database connection.");
-//   }
-// });
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => console.log(port));
