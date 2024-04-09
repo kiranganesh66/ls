@@ -1,0 +1,35 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
+  "scripts": {
+    "start": "node indexj.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.0",
+    "mysql": "^2.18.1",
+    "node-fetch": "^3.3.2",
+    "open": "^10.1.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiranganesh66/backend_urg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kiranganesh66/backend_urg/issues"
+  },
+  "homepage": "https://github.com/kiranganesh66/backend_urg#readme",
+  "description": ""
+}
