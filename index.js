@@ -3,6 +3,14 @@ const app = express();
 const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 const path = require("path");
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "https://ls-t1x1.vercel.app",
+    methods: ["GET"],
+  })
+);
 
 const dbPath = path.join(__dirname, "database.db");
 let db = null;
@@ -39,6 +47,25 @@ app.get("/revenue", async (request, response) => {
 
   const de = await db.all(sqldata);
   response.send(de);
+});
+
+app.get("/sale/:id/", async (request, response) => {
+  let { id } = request.params;
+
+  let sqldata = `select * from sale where id = ${id} `;
+
+  const de = await db.get(sqldata);
+  response.send(de);
+});
+
+app.get("/web_sale/:web_sales/", async (request, response) => {
+  let { web_sales } = request.params;
+
+  let sqldata = `select * from sale where web_sales > ${web_sales}`;
+
+  const de = await db.all(sqldata);
+  response.send(de);
+  console.log(web_sales);
 });
 
 const port = process.env.PORT || 3000;

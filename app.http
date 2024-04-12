@@ -3,6 +3,16 @@
 GET http://localhost:3000/products
 
 ###
+
 GET http://localhost:3000/sale
 ###
+
 GET http://localhost:3000/revenue
+
+###
+
+GET http://localhost:3000/sale/181
+
+
+###
+Get http://localhost:3000/web_sale/5000
