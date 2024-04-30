@@ -5,12 +5,7 @@ const sqlite3 = require("sqlite3");
 const path = require("path");
 const cors = require("cors");
 
-app.use(
-  cors({
-    origin: "https://ls-t1x1.vercel.app",
-    methods: ["GET"],
-  })
-);
+app.use(cors());
 
 const dbPath = path.join(__dirname, "database.db");
 let db = null;
